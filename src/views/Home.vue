@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md text-xs-center class="Home">
     <h1 class="Title">Random Drinks</h1>
-    <p class="Title">Welcome {{usuario.nombre}}</p>
+    <p class="Title" v-if="usuario!=''">Welcome {{usuario.nombre}}</p>
     <div>
       <v-layout row wrap>
         <v-flex xs6 md2 v-for="(bebida, index) in bebidas" :key="index">

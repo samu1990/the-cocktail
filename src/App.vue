@@ -18,10 +18,14 @@
             <v-icon x-large>search</v-icon>
           </v-btn>
         </router-link>
-        <router-link to="/Login">
+        <router-link to="/Login" v-if="usuario==''">
           <v-btn icon>
-            <v-icon x-large v-if="usuario==null">person</v-icon>
-            <v-icon x-large v-if="usuario!=null">chat</v-icon>
+            <v-icon x-large>person</v-icon>
+          </v-btn>
+        </router-link>
+        <router-link to="/Chat" v-if="usuario!=''">
+          <v-btn icon>
+            <v-icon x-large>chat</v-icon>
           </v-btn>
         </router-link>
       </v-toolbar-items>

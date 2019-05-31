@@ -35,6 +35,14 @@ const router = new Router({
       }
     },
     {
+      path: '/chat',
+      name: 'chat',
+      component: () => import('./views/Chat.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('./views/Login.vue')
