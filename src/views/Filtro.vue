@@ -1,25 +1,20 @@
 <template>
   <div class="filtro">
-    <h1 class="Title">Search Cocktail</h1>
-    <div class="filtre">
-      <v-layout row wrap>
-        <v-flex xs4>
-          <v-btn @click="getBebidas(0),nCategory=0">Alcoholic</v-btn>
-        </v-flex>
-        <v-flex xs4>
-          <v-btn @click="getBebidas(1),nCategory=1">Non Alcoholic</v-btn>
-        </v-flex>
-        <v-flex xs4>
-          <v-btn @click="getBebidas(2),nCategory=2">Ingredient</v-btn>
-        </v-flex>
-      </v-layout>
+    <h1 class="Title" @click="nCategory=null">Search Cocktail</h1>
+    <div
+      class="filtre"
+      :class="nCategory==null? 'filtroNULL':'filtroNUM'"
+      v-for="(item, index) in category"
+      :key="index"
+    >
+      <v-btn @click="getBebidas(index),nCategory=index" :color="item.color">{{item.name}}</v-btn>
     </div>
     <div class="resultados" v-if="nCategory!=null">
       <h2 class="Title">{{category[nCategory].name}}</h2>
       <input
         class="form-control mr-sm-2"
         type="search"
-        placeholder="Search you Drick"
+        placeholder="Search you Drink"
         aria-label="Search"
         v-model="palabra"
       >
@@ -61,35 +56,47 @@ export default {
         {
           url:
             "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic",
-          name: "Alcoholic"
+          name: "Alcoholic",
+          color: "orange lighten-1"
         },
         {
           url:
             "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic",
-          name: "Non Alcoholic"
+          name: "Non Alcoholic",
+          color: "deep-orange lighten-1"
         },
 
         {
           url: "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list",
-          name: "Ingredient"
+          name: "Ingredient",
+          color: "green lighten-1"
+        },
+        {
+          url: "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list",
+          name: "Categories",
+          color: "deep-purple lighten-1"
+        },
+        {
+          url: "https://www.thecocktaildb.com/api/json/v1/1/list.php?g=list",
+          name: "Glass",
+          color: "cyan lighten-1"
         }
       ],
       nCategory: null
     };
   },
   methods: {
-    getBebidas(numero) {
+    getBebidas(num) {
+      var urls = this.category[num].url;
       this.bebidas = [];
-      var urls = this.category[numero].url;
       fetch(urls)
         .then(data => data.json())
         //.then(data => console.log(data))
         .then(data => this.bebidas.push(data));
-      console.log(urls, this.bebidas);
-      this.palabra = "";
+      console.log(urls);
+      console.log(this.bebidas);
     }
   },
-  created() {},
   computed: {
     filterItems() {
       if (this.palabra.length > 1) {
@@ -117,10 +124,20 @@ export default {
 .resultados .flex {
   margin: 1%;
 }
-.filtre {
+.filtroNULL {
   margin: 0 5%;
 }
-.filtre .v-btn {
-  width: 88%;
+.filtroNULL .v-btn {
+  margin: 5% 0;
+  width: 100%;
+  font-size: 15px;
+  height: 44px;
+  padding: 0 32px;
+}
+.filtroNUM {
+  padding: 0 3px;
+}
+.filtre button.v-btn {
+  color: white;
 }
 </style>

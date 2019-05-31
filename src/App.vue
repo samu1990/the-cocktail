@@ -10,22 +10,22 @@
       <v-toolbar-items>
         <router-link to="/">
           <v-btn icon>
-            <v-icon>home</v-icon>
+            <v-icon x-large>home</v-icon>
           </v-btn>
         </router-link>
         <router-link to="/Filtro">
           <v-btn icon>
-            <v-icon>search</v-icon>
+            <v-icon x-large>search</v-icon>
           </v-btn>
         </router-link>
         <router-link to="/Login">
           <v-btn icon>
-            <v-icon>person</v-icon>
+            <v-icon x-large v-if="usuario==null">person</v-icon>
+            <v-icon x-large v-if="usuario!=null">chat</v-icon>
           </v-btn>
         </router-link>
       </v-toolbar-items>
     </v-toolbar>
-
     <v-content>
       <router-view/>
     </v-content>
@@ -33,12 +33,17 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "App",
   data() {
     return {
       bebiba: ""
     };
+  },
+  computed: {
+    ...mapState(["usuario"])
   }
 };
 </script>

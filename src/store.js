@@ -33,11 +33,11 @@ export default new Vuex.Store({
       commit
     }) {
       auth.signOut()
-      console.log('cerrar')
       commit('nuevoUsuario', null)
       router.push({
-        name: 'home'
+        name: 'login'
       })
+      console.log('Cerrar Seccion');
 
     }
   }
